@@ -1,5 +1,11 @@
 import websocket
+import RPi.GPIO as GPIO
 import time
+
+LED = 38
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(LED, GPIO.IN)
 
 def on_message(ws, message):
     print("message:")
@@ -13,18 +19,18 @@ def on_close(ws):
     print("### closed ###")
 
 def on_open(ws):
-    button = True
+    global LED
+    entry = GPIO.input(LED)
     while True:
         print("Jetzt Scannen")
         x = input()
-        if button:
-            #message = {"user":x, "entry": True, "time":time.time()}
-            message = '{"user":"%s","entry":false,"time":%d}' % (x, time.time())
+        if entry:
+            message = '{"user":"%s","entry":true,"time":%d}' % (x, time.time())
             print("button true")
             print(message)
             ws.send(message)
         else:
-            print("Besucher {} betritt den Park".format(x))
+            message = '{"user":"%s","entry":false,"time":%d}' % (x, time.time())
             print("button false")
             ws.send(message)
 

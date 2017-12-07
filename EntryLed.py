@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 LED = 38
 BUTTON = 40

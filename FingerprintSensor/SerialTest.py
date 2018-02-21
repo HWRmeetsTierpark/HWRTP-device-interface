@@ -1,6 +1,7 @@
 import serial
 import time
 
+
 class FingerPrintCommunication(object):
     def __init__(self):
         self.uart = 0
@@ -10,7 +11,7 @@ class FingerPrintCommunication(object):
         self.PID_ACK = 0x07
         self.PID_EOD = 0x08
 
-    def handShake(self):
+    def hand_shake(self):
         command = 0
         command += self.HEADER << (11 * 8)
         command += 0xFFFFFFFF << (7 * 8)
@@ -23,8 +24,8 @@ class FingerPrintCommunication(object):
         self.uart.write(hex(command).encode())
         ack = self.uart.read()
         print(ack)
-        
-    def readSysPar(self):
+
+    def read_sys_par(self):
         command = 0
         command += self.HEADER << (10 * 8)
         command += 0xFFFFFFFF << (6 * 8)
@@ -45,10 +46,10 @@ class FingerPrintCommunication(object):
             self.uart.close()
         self.uart.open()
         time.sleep(1)
-        #self.handShake()
-        self.readSysPar()
+        #self.hand_shake()
+        self.read_sys_par()
+
 
 if __name__ == "__main__":
     fingerPrintCom = FingerPrintCommunication()
     fingerPrintCom.init()
-    

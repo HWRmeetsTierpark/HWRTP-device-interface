@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import time
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -11,10 +10,12 @@ ledOn = False
 GPIO.setup(LED, GPIO.OUT)
 GPIO.setup(BUTTON, GPIO.IN)
 
-def changeLedState(channel):
+
+def change_led_state():
     global ledOn
     ledOn = not ledOn
     GPIO.output(LED, ledOn)
-    
+
+
 if __name__ == "__main__":
-    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=changeLedState)
+    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=change_led_state)

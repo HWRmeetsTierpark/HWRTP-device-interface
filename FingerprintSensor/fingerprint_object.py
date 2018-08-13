@@ -1,0 +1,5 @@
+
+class FingerprintObject():
+    
+    visitorId = ""
+    image = []
